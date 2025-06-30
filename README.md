@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 # 📚 BharatVerse — An Expert of Indian epics!
 
 **BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the Mahabharata, Ramayana, and Puranas — using Wikipedia, Wikidata, and open-source language models. The aim is to make the rich legacy of Indian itihaas accessible, understandable, and globally appreciated ; without reducing it to just "myth".
@@ -90,3 +92,6 @@
 - [ ] Final deployment with frontend wrapper
 
 ---
+## 🧾 License
+
+This project is licensed under the [MIT License](./LICENSE).
