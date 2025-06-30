@@ -7,7 +7,7 @@
 ## 🔗 Chatbot Link  
 [https://udify.app/chat/afeCzONr7l2ifH5e]
 
-> ⚠️ *Note: This link works only on the local machine or local network where the Dify server is running.*
+> ⚠️ *Note: This link works for almost all devices since it's running in a CLOUD dify application*
 
 ---
 
