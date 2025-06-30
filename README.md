@@ -2,6 +2,9 @@
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
 
+[🛠 GitLab Repository](https://code.swecha.org/soai2025/soai-hackathon/Bharathverse)
+
+
 
 # 📚 BharatVerse — An Expert of Indian epics!
 
