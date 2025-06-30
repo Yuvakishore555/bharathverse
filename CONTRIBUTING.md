@@ -67,7 +67,7 @@ docs: update README with character flow
 
 ## ✅ Ready to Contribute?
 
-Start by picking an open issue from the [Issue Board](./-/boards), or open one yourself with a descriptive title and label.
+Start by picking an open issue from the [Issue Board](./-/boards), or open one yourself with a descriptive title and label
 
 Let’s make BharatVerse clean, respectful, and powerful — just like the stories it carries.
 
