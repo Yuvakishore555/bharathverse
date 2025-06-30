@@ -1,4 +1,4 @@
-# 📚 BharatVerse — Indian Epics, Demystified with AI
+# 📚 BharatVerse — An Expert of Indian epics!
 
 **BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the Mahabharata, Ramayana, and Puranas — using Wikipedia, Wikidata, and open-source language models. The aim is to make the rich legacy of Indian itihaas accessible, understandable, and globally appreciated — without reducing it to just "myth".
 
@@ -31,8 +31,8 @@
 - **🗣️ AI-Powered Summaries**  
   Conversational, multilingual summaries of characters and stories with a storytelling tone
 
-- **🎧 Voice Narration Mode**  
-  Especially designed for kids and audio learners with calm narration for bedtime stories
+- **🎧 Voice Narration Mode(Planned for future)**  
+  If the apllication allows, we will try to add a narrator mode, especially designed for kids and audio learners with calm narration for bedtime stories
 
 - **🌐 Multilingual Mode**  
   Supports Sanskrit, Hindi, Telugu, and English for regional accessibility
@@ -54,10 +54,10 @@
 
 ## 👥 Team BharatVerse
 
-- **Bhushan** — Prompt Designer, UX  
-- **Phani** — API Integrations, Wikidata Logic  
-- **Kishore** — Frontend Dev  
-- **Yashwanth** — AI Handling, Prompt Tuning  
+- **Bhushan** — Prompt Designer(Mainly made the dify Bot)
+- **Phani** — Helping with designing   
+- **Kishore** — Head new features/ideas  
+- **Yashwanth** — Tester for the features published
 - **Manoj** — Documentation, Coordination
 
 ---
@@ -90,6 +90,3 @@
 - [ ] Final deployment with frontend wrapper
 
 ---
-
-## 📜 License  
-MIT License – Open to all contributors and cultural educators.wwwwwwwww
