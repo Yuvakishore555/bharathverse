@@ -17,11 +17,12 @@ We’re a student team working on this as part of the **WikiVerse Hackathon 2025
 
 ## 👷 Roles & Responsibilities
 
-* **Bhushan** – Prompt Design, UX flow
-* **Phani** – Wikidata Integration, API logic
-* **Kishore** – Frontend Dev (UI components, visuals)
-* **Yashwanth** – Dify AI, model tuning
-* **Manoj** – Docs, Timeline Coordination, QA
+- **Bhushan** — Prompt Designer(Mainly made the dify Bot)
+- **Phani** — Helping with designing   
+- **Kishore** — Head new features/ideas  
+- **Yashwanth** — Tester for the features published
+- **Manoj** — Documentation, Coordination
+
 
 ---
 
