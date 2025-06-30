@@ -1,4 +1,4 @@
-# 🤝 Contributing to BharatVerse
+# Contributing to BharatVerse
 
 Welcome to **BharatVerse**, a culturally-rooted AI platform focused on making Indian epics like the Mahabharata and Ramayana accessible through AI and open knowledge tools.
 
