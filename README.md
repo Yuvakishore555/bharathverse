@@ -5,7 +5,6 @@
 
 [📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)
 
-hello
 
 
 
