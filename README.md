@@ -1,5 +1,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
+
+[📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)
+
+
+
 # 📚 BharatVerse — An Expert of Indian epics!
 
 **BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the Mahabharata, Ramayana, and Puranas — using Wikipedia, Wikidata, and open-source language models. The aim is to make the rich legacy of Indian itihaas accessible, understandable, and globally appreciated ; without reducing it to just "myth".
