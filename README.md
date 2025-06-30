@@ -1,7 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
-
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
 
