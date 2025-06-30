@@ -55,10 +55,10 @@
 ## 👥 Team BharatVerse
 
 - **Bhushan** — Prompt Designer(Mainly made the dify Bot)
-- **Phani** — Helping with designing   
-- **Kishore** — Head new features/ideas  
-- **Yashwanth** — Tester for the features published
-- **Manoj** — Documentation, Coordination
+- **Phani** — Helping with designing(created this projected)  
+- **Yuva Kishore** — Head new features/ideas(idea for the project) 
+- **Yashwanth** — Tester for the features published(tested the project)
+- **Manoj** — Documentation, Coordination(cordinated the tester for this project)
 
 ---
 
@@ -83,7 +83,7 @@
 
 ## 📈 Roadmap
 
-- [ ] Finish chatbot logic for character summaries  
+- [ ] Finish chatbot logic for character Summaries
 - [ ] Integrate family tree from Wikidata  
 - [ ] Add multilingual support + toggle  
 - [ ] Voice narration pipeline for selected characters  
