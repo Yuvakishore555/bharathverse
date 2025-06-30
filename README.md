@@ -90,3 +90,6 @@
 - [ ] Final deployment with frontend wrapper
 
 ---
+## 🧾 License
+
+This project is licensed under the [MIT License](./LICENSE).
