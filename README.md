@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/)
+[![Open in huggingface](https://huggingface.co/spaces/YuvaKishoreM/bharathverse))](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
 
 [📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)  
 [🛠 GitLab Repository](https://code.swecha.org/soai2025/soai-hackathon/Bharathverse)
@@ -15,8 +15,8 @@
 
 > ⚠️ *Cloud-hosted chatbot built using Dify LLM orchestration platform*
 
-## 🔗 Streamlit App  
-👉 [https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/)
+## 🔗 HuggingFace  
+👉 [https://huggingface.co/spaces/YuvaKishoreM/bharathverse](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
 
 ---
 
