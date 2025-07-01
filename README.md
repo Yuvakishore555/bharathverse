@@ -105,3 +105,16 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 streamlit run bharathverse_app.py
+
+
+---
+
+## how to run the code
+1. in terminal : run 
+    a. cd backend
+    b. uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+2. in new terminal : run
+    a. streamlit run bharathverse_app.py
+
+---
