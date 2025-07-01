@@ -1,6 +1,4 @@
-# Contributing to BharatVerse
-
-Welcome to **BharatVerse**, a culturally-rooted AI platform focused on making Indian epics like the Mahabharata and Ramayana accessible through AI and open knowledge tools.
+# Contributing to BharatVerWelcome to **BharatVerse**, a culturally-rooted AI platform focused on making Indian epics like the Mahabharata and Ramayana accessible through AI and open knowledge tools.
 
 We’re a student team working on this as part of the **WikiVerse Hackathon 2025**. Your contributions — whether they’re code, docs, or ideas — are welcome!
 
@@ -8,25 +6,25 @@ We’re a student team working on this as part of the **WikiVerse Hackathon 2025
 
 ## 🛠️ How We Work (Team Flow)
 
-* We follow the **GitLab Issue Board** structure
-* Every task is created as an **Issue** (with proper labels like `[Feature]`, `[Bug]`, `[Docs]`, etc.)
-* Each team member works on a **feature branch**
-* Once done, submit a **Merge Request** to `main` with a clear title and description
+- We follow the **GitLab Issue Board** structure
+- Every task is created as an **Issue** (with labels like `[Feature]`, `[Bug]`, `[Docs]`, etc.)
+- Each contributor works on a **feature branch**
+- Once done, submit a **Merge Request (MR)** to `main` with a clear title and description
 
 ---
 
-## 👷 Roles & Responsibilities
+## 👥 Team Members
 
-- **Bhushan** — Prompt Designer(Mainly made the dify Bot)
-- **Phani** — Helping with designing   
-- **Kishore** — Head new features/ideas  
-- **Yashwanth** — Tester for the features published
-- **Manoj** — Documentation, Coordination
-
+- Yuva Kishore  
+- Yashwanth  
+- Charitesh Reddy
+- Samanyu  
 
 ---
 
 ## 🧾 Branch Naming Convention
+
+
 
 ```
 feature/<short-title>       # New feature (e.g., feature/family-tree-svg)
