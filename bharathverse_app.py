@@ -58,7 +58,6 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
     encoded_term = urllib.parse.quote(term.strip())
     url = f"https://{lang_code}.wikipedia.org/api/rest_v1/page/summary/{encoded_term}"
     headers = {'User-Agent': 'BharathVerseApp/1.0'}
-
     try:
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
@@ -84,7 +83,7 @@ def generate_audio(text: str, lang_code: str) -> str | None:
 
 # --- UI ---
 st.title("🌿 BharathVerse")
-st.markdown("<h2>Explore the World of Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
+st.markdown("<h2>Explore the Worlds of Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
 st.markdown("---")
 
 col1, col2 = st.columns([1, 2])
@@ -101,30 +100,34 @@ submit = st.button("🔍 Explore")
 # --- MAIN LOGIC ---
 if submit:
     st.markdown("---")
-    st.spinner(f"Fetching summary of '{search_term}'...")
+    with st.spinner(f"Searching Wikipedia for '{search_term}' in {selected_lang}..."):
+        summary = fetch_wikipedia_summary(search_term, lang_code)
 
-    summary = fetch_wikipedia_summary(search_term, lang_code)
     fallback = False
 
     if not summary and lang_code != "en":
-        st.info("Not found in selected language. Trying English...")
-        summary = fetch_wikipedia_summary(search_term, "en")
-        lang_code = "en"
-        fallback = True
+        st.info("📘 Not found in selected language. Trying English fallback...")
+        with st.spinner("Searching in English..."):
+            summary = fetch_wikipedia_summary(search_term, "en")
+            lang_code = "en"
+            fallback = True
 
     if summary:
         st.markdown(f"### 📖 Summary of {search_term}")
         if fallback:
-            st.warning("⚠️ English fallback used due to unavailable article.")
+            st.warning("⚠️ English version shown as fallback.")
 
         st.info(summary)
 
-        audio_file = generate_audio(summary, lang_code)
-        if audio_file:
-            st.audio(audio_file, format="audio/mp3")
-            st.session_state["last_audio"] = audio_file
+        with st.spinner("🎧 Generating audio..."):
+            audio_file = generate_audio(summary, lang_code)
+            if audio_file:
+                st.audio(audio_file, format="audio/mp3")
+                st.session_state["last_audio"] = audio_file
+            else:
+                st.error("❌ Could not generate audio.")
     else:
-        st.error("❌ Could not fetch information.")
+        st.error("❌ Could not find any information.")
 
 # --- FAMILY TREE PLACEHOLDER ---
 st.markdown("---")
