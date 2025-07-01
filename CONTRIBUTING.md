@@ -4,6 +4,7 @@ We’re a student team working on this as part of the **WikiVerse Hackathon 2025
 
 ---
 
+
 ## 🛠️ How We Work (Team Flow)
 
 - We follow the **GitLab Issue Board** structure
