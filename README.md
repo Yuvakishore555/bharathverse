@@ -10,8 +10,8 @@
 
 ---
 
-## 🔗 Chatbot Link  
-👉 [https://udify.app/chat/afeCzONr7l2ifH5e](https://udify.app/chat/afeCzONr7l2ifH5e)
+## 🔗 Streamlit App  
+👉 [https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse)
 
 > ⚠️ *Cloud-hosted chatbot built using Dify LLM orchestration platform*
 
