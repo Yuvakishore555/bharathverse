@@ -18,7 +18,7 @@
 [https://udify.app/chat/afeCzONr7l2ifH5e]
 
 > ⚠️ *Note: This link works for almost all devices since it's running in a CLOUD dify application*
-## Streamlit Shareable link
+## 🔗 Streamlit Shareable link
   {https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/}
 
 ---
