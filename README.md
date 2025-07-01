@@ -69,7 +69,7 @@
 
 - Yuva Kishore  
 - Yashwanth  
-- Charitesh 
+- Charitesh Reddy
 - Samanyu  
 
 ---
