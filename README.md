@@ -16,7 +16,7 @@
 > ⚠️ *Cloud-hosted chatbot built using Dify LLM orchestration platform*
 
 ## 🔗 Streamlit App  
-👉 [https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
+👉 (https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/)
 
 ---
 
