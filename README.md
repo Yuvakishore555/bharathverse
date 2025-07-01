@@ -1,16 +1,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-
-
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
 
-[📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)
-
-
-
+[📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)  
+[🛠 GitLab Repository](https://code.swecha.org/soai2025/soai-hackathon/Bharathverse)
 
 # 📚 BharatVerse — An Expert of Indian epics!
 
-**BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the Mahabharata, Ramayana, and Puranas — using Wikipedia, Wikidata, and open-source language models. The aim is to make the rich legacy of Indian itihaas accessible, understandable, and globally appreciated ; without reducing it to just "myth".
+**BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the Mahabharata, Ramayana, and Puranas — using Wikipedia, Wikidata, and open-source language models. The aim is to make the rich legacy of Indian itihaas accessible, understandable, and globally appreciated — without reducing it to just "myth".
 
 ---
 
@@ -18,8 +14,9 @@
 [https://udify.app/chat/afeCzONr7l2ifH5e]
 
 > ⚠️ *Note: This link works for almost all devices since it's running in a CLOUD dify application*
-## 🔗 Streamlit Shareable link
-  {https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/}
+
+## 🔗 Streamlit Shareable Link  
+[https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/](https://bharathverse-6ljrex9dsakk3gvgptmwch.streamlit.app/)
 
 ---
 
@@ -43,65 +40,66 @@
 - **🗣️ AI-Powered Summaries**  
   Conversational, multilingual summaries of characters and stories with a storytelling tone
 
-- **🎧 Voice Narration Mode(Planned for future)**  
-  If the apllication allows, we will try to add a narrator mode, especially designed for kids and audio learners with calm narration for bedtime stories
+- **🎧 Voice Narration Mode (Planned)**  
+  Calm narration for bedtime or audio learners (kids, elders)
 
 - **🌐 Multilingual Mode**  
-  Supports Sanskrit, Hindi, Telugu, and English for regional accessibility
+  Supports Sanskrit, Hindi, Telugu, and English
 
 ---
 
 ## 📌 Example Interactions
 
 **User:** Who was Karna?  
-**Bot:** Karna was the son of Kunti and Surya, raised by a charioteer. Known for his loyalty to Duryodhana, his life reflects themes of fate, identity, and honor.
+**Bot:** Karna was the son of Kunti and Surya, raised by a charioteer...
 
 **User:** Where did the Ramayana take place?  
-**Bot:** The Ramayana spans across ancient India and Sri Lanka, including places like Ayodhya, Kishkindha, and Lanka. Many modern cities trace their names to these origins.
+**Bot:** Across Ayodhya, Lanka, and many real-world places...
 
 **User:** Show the Pandava family tree  
-**Bot:** [Shows SVG with relationships based on Wikidata]
+**Bot:** [Shows SVG from Wikidata]
 
 ---
 
 ## 👥 Team BharatVerse
 
-- **Bhushan** — Prompt Designer(Mainly made the dify Bot)
-- **Phani** — Helping with designing(created this projected)  
-- **Yuva Kishore** — Head new features/ideas(idea for the project) 
-- **Yashwanth** — Tester for the features published(tested the project)
-- **Manoj** — Documentation, Coordination(cordinated the tester for this project)
+- **Bhushan** — Prompt Designer (Dify Bot)
+- **Phani** — UI Designer
+- **Yuva Kishore** — Idea Owner & Feature Developer
+- **Yashwanth** — Tester
+- **Manoj** — Docs & Coordination
 
 ---
 
 ## ✅ Use Cases
 
-- 📖 Educational tool for schools and students  
-- 🧓 Bridging generational gaps via audio storytelling  
-- 🌍 Global introduction to Indian epics for non-Indian audiences  
-- 🧠 Accessible knowledge base on Indian itihaas and culture
+- 📖 School educational tool  
+- 👴 Bridging generational knowledge gaps  
+- 🌍 Introducing epics to non-Indian learners  
+- 🧠 Modern archive of itihaas
 
 ---
 
-## 🚧 Tech Stack & APIs Used
+## 🚧 Tech Stack
 
-- **Dify Chatbot (LLM-based)**  
-- **Wikipedia & Wikidata APIs**  
-- **Wiktionary / Wikiquote (optional for references)**  
-- **Python (Streamlit/Flask if needed for UI)**  
-- **SVG / JS-based Family Tree Gen (for visualization)**
+- **Dify (LLM Chatbot)**  
+- **Wikipedia/Wikidata APIs**  
+- **Python, Streamlit**  
+- **gTTS (voice)**  
+- **SVG/JS (visual trees)**
 
 ---
 
 ## 📈 Roadmap
 
-- [ ] Finish chatbot logic for character Summaries
-- [ ] Integrate family tree from Wikidata  
-- [ ] Add multilingual support + toggle  
-- [ ] Voice narration pipeline for selected characters  
-- [ ] Final deployment with frontend wrapper
+- [ ] Finalize Dify logic
+- [ ] Wikidata family tree
+- [ ] Full multilingual support
+- [ ] Voice narration
+- [ ] Production-ready frontend
 
 ---
+
 ## 🧾 License
 
 This project is licensed under the [MIT License](./LICENSE).
