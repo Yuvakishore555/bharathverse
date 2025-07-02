@@ -1,22 +1,29 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Open in huggingface](https://huggingface.co/spaces/YuvaKishoreM/bharathverse))](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
+---
+title: BharathVerse
+emoji: 🌿
+colorFrom: green
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.46.1
+app_file: bharathverse_app.py
+pinned: false
+---
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)  
 [📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)  
 [🛠 GitLab Repository](https://code.swecha.org/soai2025/soai-hackathon/Bharathverse)
 
 # 📚 BharatVerse — An Expert of Indian Epics!
 
-**BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the *Mahabharata*, *Ramayana*, and *Puranas* — using Wikipedia, Wikidata, and open-source language models. It makes the rich legacy of Indian *itihaas* accessible, understandable, and globally appreciated — without reducing it to just “myth.”
+**BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the *Mahabharata*, *Ramayana*, and *Puranas* — using Wikipedia and open-source tools. It makes the rich legacy of Indian *itihaas* accessible, understandable, and globally appreciated — without reducing it to just “myth.”
 
 ---
 
 ## 🔗 Streamlit App  
-👉 [https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse)
+👉 [Live on Streamlit](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse)
 
-> ⚠️ *Cloud-hosted chatbot built using Dify LLM orchestration platform*
-
-## 🔗 HuggingFace  
-👉 [https://huggingface.co/spaces/YuvaKishoreM/bharathverse](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
+## 🔗 Hugging Face Space  
+👉 [Live on Hugging Face](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
 
 ---
 
@@ -32,23 +39,14 @@
 ## 🧠 Features
 
 - **🧬 Character-Based Search**
-  - Explore popular characters across all three languages via dropdown.
-
-- **🗣️ AI-Powered Summaries**
-  - Wikipedia-based summaries with fallback to English if content is missing.
-
-- **🎧 Multilingual Audio Narration**
-  - Streamlit + gTTS speech playback in Telugu, Hindi, and English.
-
-- **📍 Future: Myth Meets History**
-  - Maps + locations like Kurukshetra, Lanka (Wikidata mapping planned).
-
-- **🌳 Family Tree Visualizer**
-  - Coming soon using SVG and Wikidata relationship graphs.
+- **🗣️ AI-Powered Wikipedia Summaries**
+- **🎧 Multilingual Audio Narration (gTTS)**
+- **🌐 Language Support:** English, Hindi, Telugu
+- *(🔜 Family Tree, Maps coming soon)*
 
 ---
 
-## 🌐 Supported Characters (Examples)
+## 🌐 Supported Characters
 
 | English     | हिंदी (Hindi) | తెలుగు (Telugu)   |
 |-------------|---------------|--------------------|
@@ -76,23 +74,11 @@
 
 ## 🚀 Tech Stack
 
-- 🧠 **Dify** – LLM Bot Integration (Chat App)
-- 📄 **Wikipedia/Wikidata REST APIs**
-- 🐍 **Python (3.10+)**
-- 🌐 **Streamlit** – Interactive UI
-- 🔊 **gTTS** – Google Text-to-Speech
-- 📊 **SVG** – (Planned) Family Trees
-
----
-
-## 📈 Roadmap
-
-- [x] Character selection dropdown
-- [x] Multilingual summaries with fallback
-- [x] Audio narration using gTTS
-- [ ] Integrate Wikidata for Family Tree
-- [ ] Timeline + Geographical Maps
-- [ ] Mobile-first UI optimization
+- 🧠 Dify – LLM Bot Integration (for future roadmap)
+- 📄 Wikipedia REST API
+- 🔊 gTTS (Google Text-to-Speech)
+- 🐍 Python 3.10+
+- 🌐 Streamlit UI
 
 ---
 
@@ -105,16 +91,3 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 streamlit run bharathverse_app.py
-
-
----
-
-## how to run the code
-1. in terminal : run 
-    a. cd backend
-    b. uvicorn main:app --reload --host 0.0.0.0 --port 8000
-
-2. in new terminal : run
-    a. streamlit run bharathverse_app.py
-
----

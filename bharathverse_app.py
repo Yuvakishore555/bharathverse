@@ -3,7 +3,6 @@ import requests
 from gtts import gTTS
 import urllib.parse
 import tempfile
-from SPARQLWrapper import SPARQLWrapper, JSON
 
 # --- CONFIG & STYLING ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
@@ -39,15 +38,6 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-WIKIDATA_IDS = {
-    "Rama": "Q151973",
-    "Arjuna": "Q151757",
-    "Krishna": "Q33923",
-    "Hanuman": "Q27954",
-    "Draupadi": "Q27386"
-    # Add more as needed
-}
-
 # --- FETCH WIKIPEDIA SUMMARY ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
@@ -76,25 +66,6 @@ def generate_audio(text: str, lang_code: str) -> str | None:
     except Exception as e:
         st.error(f"🔇 Audio error: {e}")
         return None
-
-# --- FETCH FAMILY TREE FROM WIKIDATA ---
-def fetch_family_tree(wikidata_id: str):
-    sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-    sparql.setQuery(f"""
-    SELECT ?relativeLabel ?relationLabel WHERE {{
-      wd:{wikidata_id} p:P40 ?childStatement.
-      ?childStatement ps:P40 ?relative;
-                      pq:P3831 ?relation.
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-    }}
-    """)
-    sparql.setReturnFormat(JSON)
-    try:
-        results = sparql.query().convert()
-        family = [(r['relativeLabel']['value'], r['relationLabel']['value']) for r in results["results"]["bindings"]]
-        return family
-    except Exception as e:
-        return [("Failed to load family tree", str(e))]
 
 # --- APP LAYOUT ---
 st.title("🌿 BharathVerse")
@@ -137,17 +108,6 @@ if st.button("🔍 Explore"):
                 st.error("🔇 Could not play audio.")
     else:
         st.error("❌ No information found in any language.")
-
-# --- FAMILY TREE SPARQL ---
-st.markdown("---")
-with st.expander("🌳 View Family Tree (Live from Wikidata)"):
-    if search_term in WIKIDATA_IDS:
-        st.markdown(f"Showing family tree for **{search_term}**")
-        family = fetch_family_tree(WIKIDATA_IDS[search_term])
-        for rel, rel_type in family:
-            st.markdown(f"- **{rel_type}**: {rel}")
-    else:
-        st.info("Wikidata family info not available for this character.")
 
 # --- FOOTER ---
 st.markdown("---")
