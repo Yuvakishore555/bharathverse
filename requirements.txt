@@ -1,4 +1,14 @@
+# Streamlit Web App
 streamlit==1.26.0
+
+# Text-to-Speech for Summary Audio
 gTTS==2.5.4
+
+# HTTP Requests for Wikipedia API
 requests==2.31.0
-pillow==9.2.0
+
+# Pillow required by Streamlit for image processing (compatible version)
+pillow==9.5.0
+
+# Optional: rich logging (used internally by Streamlit)
+rich>=10.14.0
