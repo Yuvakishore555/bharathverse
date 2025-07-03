@@ -5,32 +5,56 @@ import urllib.parse
 import tempfile
 import os
 
-# --- CONFIG & STYLING ---
+# --- PAGE CONFIG ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
+# --- CUSTOM CSS ---
 st.markdown("""
     <style>
         .main { background-color: #0e1117; }
+        h1, h2, h3 {
+            text-align: center;
+            color: #FFD700;
+        }
+        .sanskrit {
+            font-family: 'Noto Serif', serif;
+            font-size: 28px;
+            color: #FFD700;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .footer-text {
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
         .stButton>button {
-            background-color: #4CAF50; color: white;
-            padding: 10px 24px; border: none; font-size: 16px;
-            border-radius: 16px; width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            font-size: 16px;
+            border-radius: 16px;
+            width: 100%;
         }
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
         }
-        h1, h2 { text-align: center; }
-        .sanskrit-header {
-            font-family: 'Sanskrit Text', 'Devanagari', serif;
-            font-size: 36px;
-            color: gold;
-            text-align: center;
-            margin-top: 10px;
-        }
     </style>
 """, unsafe_allow_html=True)
 
-# --- LANGUAGES & CHARACTERS ---
+# --- OM CHANTING AUDIO ---
+audio_file_path = os.path.join("assets", "om_chanting.mp3")
+if os.path.exists(audio_file_path):
+    st.audio(audio_file_path, format="audio/mp3", start_time=0)
+
+# --- TOP TEXT ---
+st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
+st.title("🌿 BharathVerse")
+st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
+st.markdown("---")
+
+# --- LANGUAGE & CHARACTERS ---
 LANGUAGES = {
     "English": "en",
     "हिन्दी (Hindi)": "hi",
@@ -46,11 +70,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- DISPLAY SANSKRIT LINE ---
-st.markdown('<div class="sanskrit-header">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
-st.markdown("---")
-
-# --- FETCH WIKIPEDIA SUMMARY ---
+# --- FUNCTIONS ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -60,13 +80,11 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
             return None
-        data = res.json()
-        return data.get("extract", None)
+        return res.json().get("extract", None)
     except Exception as e:
         st.error(f"🌐 Network error: {e}")
         return None
 
-# --- GENERATE AUDIO SAFELY ---
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -79,13 +97,8 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# --- APP LAYOUT ---
-st.title("🌿 BharathVerse")
-st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
-st.markdown("---")
-
+# --- UI ---
 col1, col2 = st.columns([1, 2])
-
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
     lang_code = LANGUAGES[selected_lang]
@@ -121,18 +134,6 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
+# --- FOOTER ---
 st.markdown("---")
-
-# --- FOOTER + OM CHANTING ---
 st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
-
-# Om chanting from local file
-om_path = "assets/om_chanting.mp3"
-if os.path.exists(om_path):
-    st.markdown("""
-        <audio controls loop>
-            <source src="assets/om_chanting.mp3" type="audio/mp3">
-        </audio>
-    """, unsafe_allow_html=True)
-else:
-    st.warning("🔇 Om chanting file not found. Please place it in `assets/om_chanting.mp3`.")
