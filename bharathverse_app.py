@@ -77,7 +77,6 @@ if not st.session_state.app_started:
         if name.strip():
             st.session_state.user_name = name.strip()
             st.session_state.app_started = True
-            st.rerun()
         else:
             st.warning("Please enter your name before proceeding.")
     st.stop()
