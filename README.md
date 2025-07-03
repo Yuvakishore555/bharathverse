@@ -9,40 +9,45 @@ app_file: bharathverse_app.py
 pinned: false
 ---
 
+[![Streamlit App](https://img.shields.io/badge/Streamlit-Live-green?logo=streamlit)](https://bharathverse-oj8yak8w3afqijpomlwkq6.streamlit.app/)  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)  
 [📦 GitHub Repository](https://github.com/Yuvakishore555/bharathverse)  
 [🛠 GitLab Repository](https://code.swecha.org/soai2025/soai-hackathon/Bharathverse)
 
-# 📚 BharatVerse — An Expert of Indian Epics!
+# 🌿 BharathVerse — An Expert of Indian Epics!
 
-**BharatVerse** is an interactive AI-powered platform designed to explore Indian history, epics, and cultural legends — like the *Mahabharata*, *Ramayana*, and *Puranas* — using Wikipedia and open-source tools. It makes the rich legacy of Indian *itihaas* accessible, understandable, and globally appreciated — without reducing it to just “myth.”
+**BharathVerse** is a Streamlit-powered app that brings Indian *Itihasa*—*Mahabharata*, *Ramayana*, and *Puranas*—to life using AI narration, multilingual search, and immersive background chanting.
+
+> **“धर्मो रक्षति रक्षितः” — Dharma protects those who protect it.**
+
+✨ **The webpage auto-plays with Om chanting for spiritual immersion.**
 
 ---
 
-## 🔗 Streamlit App  
-👉 [Live on Streamlit](https://bharathverse-bwwxvff2ozzxqoaswsbfpt.streamlit.app/#bharath-verse)
+## 🔗 Live App Links
 
-## 🔗 Hugging Face Space  
-👉 [Live on Hugging Face](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
+- 🚀 **Streamlit**: [bharathverse.streamlit.app](https://bharathverse-oj8yak8w3afqijpomlwkq6.streamlit.app/)
+- 🤗 **Hugging Face Space**: [huggingface.co/spaces/YuvaKishoreM/bharathverse](https://huggingface.co/spaces/YuvaKishoreM/bharathverse)
 
 ---
 
 ## 🎯 Purpose
 
-- Bridge the gap between mythology and verified historical knowledge.
-- Help students and enthusiasts learn Indian epics through modern tech.
-- Use AI and voice narration to preserve and promote *itihaasa*.
-- Deliver language accessibility across English, Hindi, and Telugu.
+- Bridge mythology with historically contextual knowledge.
+- Help students explore Indian culture using modern tech.
+- Promote *itihaasa* through audio-visual storytelling.
+- Ensure accessibility in English, Hindi, and Telugu.
 
 ---
 
 ## 🧠 Features
 
-- **🧬 Character-Based Search**
-- **🗣️ AI-Powered Wikipedia Summaries**
-- **🎧 Multilingual Audio Narration (gTTS)**
-- **🌐 Language Support:** English, Hindi, Telugu
-- *(🔜 Family Tree, Maps coming soon)*
+- 🔍 **Character-Based Search**
+- 📖 **Wikipedia-Powered Summaries**
+- 🗣️ **AI Voice Narration with gTTS**
+- 🎵 **Auto-Playing Om Chanting Background**
+- 🌐 **Multilingual Support:** English, Hindi, Telugu
+- 🖤 **Dark Mode UI with Golden Sanskrit Styling**
 
 ---
 
@@ -63,31 +68,32 @@ pinned: false
 
 ---
 
-## 👥 Team BharatVerse
+## 👨‍💻 Team BharathVerse
 
-- Yuva Kishore  
-- Yashwanth  
-- Charitesh Reddy  
-- Samanyu  
+- **Yuva Kishore**  
+- **Yashwanth**  
+- **Charitesh Reddy**  
+- **Samanyu**  
 
 ---
 
 ## 🚀 Tech Stack
 
-- 🧠 Dify – LLM Bot Integration (for future roadmap)
+- 🧠 Dify (planned) – LLM Bot Integration
 - 📄 Wikipedia REST API
-- 🔊 gTTS (Google Text-to-Speech)
+- 🔊 Google Text-to-Speech (gTTS)
 - 🐍 Python 3.10+
-- 🌐 Streamlit UI
+- 🎛️ Streamlit (1.26.0+)
+- 🎨 Custom CSS, HTML, and embedded audio
 
 ---
 
-## 🧪 How to Run Locally
+## 🧪 Run Locally
 
 ```bash
 git clone https://github.com/Yuvakishore555/bharathverse.git
 cd bharathverse
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # or .\\venv\\Scripts\\activate on Windows
 pip install -r requirements.txt
 streamlit run bharathverse_app.py
