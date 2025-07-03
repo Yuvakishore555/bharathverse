@@ -1,16 +1,14 @@
-[theme]
-base = "dark"
-primaryColor = "#4CAF50"
-backgroundColor = "#0e1117"
-secondaryBackgroundColor = "#262730"
-textColor = "#FAFAFA"
-font = "sans serif"
+# Streamlit Web App
+streamlit==1.26.0
 
-[server]
-headless = true
-port = 8501
-enableCORS = false
-enableXsrfProtection = false
+# Text-to-Speech for Summary Audio
+gTTS==2.5.4
 
-[client]
-showErrorDetails = true
+# HTTP Requests for Wikipedia API
+requests==2.31.0
+
+# Pillow required by Streamlit for image processing (compatible version)
+pillow==9.5.0
+
+# Optional: rich logging (used internally by Streamlit)
+rich>=10.14.0
