@@ -4,63 +4,46 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 
-# --- CONFIG & STYLING ---
+# --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
+# --- GOLDEN SANSKRIT VERSE ---
+st.markdown("""
+    <div style="text-align:center; margin-bottom: 20px;">
+        <div style="
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            padding: 6px 16px;
+            border-radius: 14px;
+            font-family: 'Noto Serif', serif;
+            font-size: 12px;
+            color: gold;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+        ">
+            धर्मो रक्षति रक्षितः
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- CUSTOM CSS STYLING ---
 st.markdown("""
     <style>
-        html, body, .main {
-            background: linear-gradient(rgba(13,17,23,0.9), rgba(13,17,23,0.95)),
-                        url("https://i.ibb.co/3kmbxSR/epic-bg.jpg");
-            background-size: cover;
-            background-position: center;
-            color: #e6edf3;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .block-container {
-            background-color: rgba(28, 31, 38, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 2rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
+        .main { background-color: #0e1117; }
         .stButton>button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 20px;
-            font-size: 16px;
-            width: 100%;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
+            background-color: #4CAF50; color: white;
+            padding: 10px 24px; border: none; font-size: 16px;
+            border-radius: 16px; width: 100%;
         }
-
-        .stButton>button:hover {
-            background-color: #45a049;
-            transform: scale(1.03);
-        }
-
         .stSelectbox>div>div, .stTextInput>div>div>input {
-            border-radius: 12px !important;
-            background-color: rgba(255,255,255,0.07);
-            color: white !important;
+            border-radius: 16px;
         }
-
-        h1, h2, h3 {
-            text-align: center;
-            color: #f0f6fc;
-        }
-
-        footer {
-            color: #8b949e;
-        }
+        h1, h2 { text-align: center; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- LANGUAGES & CHARACTERS ---
+# --- LANGUAGE & CHARACTER SETUP ---
 LANGUAGES = {
     "English": "en",
     "हिन्दी (Hindi)": "hi",
@@ -76,7 +59,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- FETCH WIKIPEDIA SUMMARY ---
+# --- WIKIPEDIA API FETCH ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -92,7 +75,7 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         st.error(f"🌐 Network error: {e}")
         return None
 
-# --- GENERATE AUDIO ---
+# --- AUDIO GENERATOR ---
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -105,7 +88,7 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# --- APP LAYOUT ---
+# --- PAGE CONTENT ---
 st.title("🌿 BharathVerse")
 st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
 st.markdown("---")
@@ -147,5 +130,6 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
+# --- FOOTER ---
 st.markdown("---")
-st.caption("🚀 Built with 🇮🇳 love by Team BharathVerse for WikiVerse Hackathon 2025")
+st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
