@@ -3,46 +3,63 @@ import requests
 from gtts import gTTS
 import urllib.parse
 import tempfile
-import os
+import base64
 
-# -------------------- CONFIGURATION --------------------
+# ------------------- CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-if "chanting_played" not in st.session_state:
-    st.session_state.chanting_played = False
-
-# -------------------- STYLING --------------------------
+# ------------------- STYLE -------------------
 st.markdown("""
     <style>
-    body, .main {
-        background-color: #0e1117;
-        color: #ffffff;
-    }
-    .stButton > button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 24px;
-        font-size: 16px;
-        border-radius: 16px;
-        border: none;
-        width: 100%;
-    }
-    .stSelectbox > div > div, .stTextInput > div > div > input {
-        border-radius: 16px;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: white;
-        text-align: center;
-    }
-    .title-text {
-        font-size: 22px;
-        color: gold;
-        font-family: 'Sanskrit Text', 'Noto Sans', sans-serif;
-    }
+        .main { background-color: #0e1117; }
+        h1, h2 { text-align: center; }
+        .sanskrit {
+            text-align: center;
+            font-size: 28px;
+            font-family: 'Noto Serif', serif;
+            color: gold;
+            margin-bottom: 0.5rem;
+        }
+        .stButton>button {
+            background-color: #4CAF50; color: white;
+            padding: 10px 24px; border: none; font-size: 16px;
+            border-radius: 16px; width: 100%;
+        }
+        .stSelectbox>div>div, .stTextInput>div>div>input {
+            border-radius: 16px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# -------------------- LANGUAGES & CHARACTERS --------------------------
+# ------------------- AUTO PLAY AUDIO -------------------
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        audio_bytes = f.read()
+    b64 = base64.b64encode(audio_bytes).decode()
+    md = f"""
+        <audio autoplay loop hidden>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+    """
+    st.markdown(md, unsafe_allow_html=True)
+
+autoplay_audio("assets/om_chanting.mp3")
+
+# ------------------- HEADER -------------------
+st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
+
+st.markdown("""
+    <div style="text-align: center; font-size: 32px; font-weight: bold; color: white;">
+        🌿 BharathVerse
+    </div>
+    <div style="text-align: center; font-size: 32px; font-weight: bold; color: white; margin-top: 0.5rem;">
+        Explore Ramayana, Mahabharata & Puranas
+    </div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# ------------------- LANGUAGES & CHARACTERS -------------------
 LANGUAGES = {
     "English": "en",
     "हिन्दी (Hindi)": "hi",
@@ -58,7 +75,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# -------------------- WIKI FETCH --------------------------
+# ------------------- WIKIPEDIA FETCH -------------------
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -68,12 +85,13 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
             return None
-        return res.json().get("extract", None)
+        data = res.json()
+        return data.get("extract", None)
     except Exception as e:
         st.error(f"🌐 Network error: {e}")
         return None
 
-# -------------------- TTS GENERATOR --------------------------
+# ------------------- AUDIO GENERATOR -------------------
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -86,50 +104,14 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# -------------------- TITLE --------------------------
-st.markdown('<p class="title-text">धर्मो रक्षति रक्षितः</p>', unsafe_allow_html=True)
-st.markdown('<h1>🌿 BharathVerse</h1>', unsafe_allow_html=True)
-st.markdown('<h2>Explore Ramayana, Mahabharata & Puranas</h2>', unsafe_allow_html=True)
-st.markdown("---")
-
-# -------------------- AUDIO PLAYER --------------------------
-om_audio_path = os.path.join("assets", "om_chanting.mp3")
-
-# HTML for autoplay and hidden player
-audio_html = f"""
-<audio autoplay loop style="display:none;" id="bg-audio">
-  <source src="{om_audio_path}" type="audio/mp3">
-</audio>
-<script>
-  var audio = document.getElementById("bg-audio");
-  var playPromise = audio.play();
-  if (playPromise !== undefined) {{
-    playPromise.catch(() => {{
-      document.getElementById("audio-btn").style.display = "inline-block";
-    }});
-  }}
-</script>
-"""
-
-# Manual button fallback if autoplay fails (for mobile)
-st.markdown(audio_html, unsafe_allow_html=True)
-
-if not st.session_state.chanting_played:
-    if st.button("🔊 Tap to Play Om Chanting", key="audio-btn"):
-        st.audio(om_audio_path, format="audio/mp3", loop=True)
-        st.session_state.chanting_played = True
-
-# -------------------- SELECTORS --------------------------
+# ------------------- FORM -------------------
 col1, col2 = st.columns([1, 2])
-
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
     lang_code = LANGUAGES[selected_lang]
-
 with col2:
     search_term = st.selectbox("🧙‍♂️ Choose a Character", CHARACTERS[lang_code])
 
-# -------------------- SEARCH HANDLER --------------------------
 if st.button("🔍 Explore"):
     st.markdown("---")
     with st.spinner(f"🔍 Searching for '{search_term}' in {selected_lang}..."):
@@ -158,6 +140,6 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
-# -------------------- FOOTER --------------------------
+# ------------------- FOOTER -------------------
 st.markdown("---")
 st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
