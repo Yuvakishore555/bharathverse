@@ -9,31 +9,53 @@ st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered
 
 st.markdown("""
     <style>
-        .main {
-            background-color: #0e1117;
-            color: #FAFAFA;
+        html, body, .main {
+            background: linear-gradient(rgba(13,17,23,0.9), rgba(13,17,23,0.95)),
+                        url("https://i.ibb.co/3kmbxSR/epic-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            color: #e6edf3;
+            font-family: 'Segoe UI', sans-serif;
         }
-        h1, h2 {
-            text-align: center;
-            color: white !important;
+
+        .block-container {
+            background-color: rgba(28, 31, 38, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 2rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-        label {
-            color: white !important;
-            font-weight: 500;
-        }
+
         .stButton>button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 24px;
+            padding: 12px 20px;
             border: none;
+            border-radius: 20px;
             font-size: 16px;
-            border-radius: 16px;
             width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
         }
+
+        .stButton>button:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+        }
+
         .stSelectbox>div>div, .stTextInput>div>div>input {
-            border-radius: 16px;
-            background-color: #262730;
-            color: white;
+            border-radius: 12px !important;
+            background-color: rgba(255,255,255,0.07);
+            color: white !important;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            color: #f0f6fc;
+        }
+
+        footer {
+            color: #8b949e;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -70,7 +92,7 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         st.error(f"🌐 Network error: {e}")
         return None
 
-# --- GENERATE AUDIO SAFELY ---
+# --- GENERATE AUDIO ---
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -125,6 +147,5 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
-# --- FOOTER ---
 st.markdown("---")
-st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
+st.caption("🚀 Built with 🇮🇳 love by Team BharathVerse for WikiVerse Hackathon 2025")
