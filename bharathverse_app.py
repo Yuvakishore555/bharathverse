@@ -72,14 +72,19 @@ if "user_name" not in st.session_state:
 if not st.session_state.app_started:
     st.markdown('<div class="sanskrit">Welcome to BharathVerse</div>', unsafe_allow_html=True)
     st.markdown('<div class="welcome-label">Enter your name to begin:</div>', unsafe_allow_html=True)
+
     name = st.text_input("", key="name_input")
-    if st.button("🔱 Begin BharathVerse"):
-        if name.strip():
-            st.session_state.user_name = name.strip()
-            st.session_state.app_started = True
-        else:
-            st.warning("Please enter your name before proceeding.")
-    st.stop()
+    start_button = st.button("🔱 Begin BharathVerse")
+
+    if start_button and name.strip():
+        st.session_state.user_name = name.strip()
+        st.session_state.app_started = True
+
+    elif start_button:
+        st.warning("Please enter your name before proceeding.")
+
+    if not st.session_state.app_started:
+        st.stop()
 
 # ------------------- AUTO PLAY OM CHANT -------------------
 def autoplay_audio(file_path: str):
