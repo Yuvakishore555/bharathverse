@@ -8,14 +8,11 @@ import base64
 # ------------------- CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# ------------------- INLINE DARK THEME CSS FOR HUGGING FACE -------------------
+# ------------------- STYLE -------------------
 st.markdown("""
     <style>
-        html, body, .main {
-            background-color: #0e1117 !important;
-            color: white !important;
-        }
-
+        .main { background-color: #0e1117; }
+        h1, h2 { text-align: center; }
         .sanskrit {
             text-align: center;
             font-size: 28px;
@@ -23,38 +20,30 @@ st.markdown("""
             color: gold;
             margin-bottom: 0.5rem;
         }
-
-        h1, h2 {
-            text-align: center;
-            color: white !important;
-        }
-
         .stButton>button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 24px;
-            border: none;
-            font-size: 16px;
+            background-color: #4CAF50; color: white;
+            padding: 10px 24px; border: none; font-size: 16px;
+            border-radius: 16px; width: 100%;
+        }
+        .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
-            width: 100%;
-        }
-
-        .stSelectbox>div>div,
-        .stTextInput>div>div>input {
-            border-radius: 16px;
-            background-color: #262730 !important;
-            color: white !important;
-        }
-
-        .stSelectbox label, .stTextInput label {
-            color: white !important;
-        }
-
-        footer, header {
-            visibility: hidden;
         }
     </style>
 """, unsafe_allow_html=True)
+
+# ------------------- AUTO PLAY AUDIO -------------------
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        audio_bytes = f.read()
+    b64 = base64.b64encode(audio_bytes).decode()
+    md = f"""
+        <audio autoplay loop hidden>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+    """
+    st.markdown(md, unsafe_allow_html=True)
+
+autoplay_audio("assets/om_chanting.mp3")
 
 # ------------------- HEADER -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
@@ -114,25 +103,6 @@ def generate_audio(text: str, lang_code: str) -> str | None:
     except Exception as e:
         st.error(f"🔇 Audio error: {e}")
         return None
-
-# ------------------- AUDIO PLAYER (OPTIONAL) -------------------
-# If you want om_chanting.mp3 to auto-play (some browsers block autoplay)
-def autoplay_audio(file_path: str):
-    try:
-        with open(file_path, "rb") as f:
-            audio_bytes = f.read()
-        b64 = base64.b64encode(audio_bytes).decode()
-        md = f"""
-            <audio autoplay loop hidden>
-                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-        """
-        st.markdown(md, unsafe_allow_html=True)
-    except Exception as e:
-        st.warning("Audio file not found or couldn't play.")
-
-# Uncomment if om chanting is present
-autoplay_audio("assets/om_chanting.mp3")
 
 # ------------------- FORM -------------------
 col1, col2 = st.columns([1, 2])
