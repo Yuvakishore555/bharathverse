@@ -4,39 +4,75 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 
-# --- PAGE CONFIG ---
+# --- STREAMLIT PAGE CONFIG ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# --- GOLDEN SANSKRIT TEXT (ENLARGED, NO BOX) ---
-st.markdown("""
-    <div style="text-align:center; margin-top: 10px; margin-bottom: 30px;">
-        <span style="
-            color: gold;
-            font-size: 20px;
-            font-family: 'Noto Serif', serif;
-            font-weight: bold;
-            letter-spacing: 1px;
-        ">
-            धर्मो रक्षति रक्षितः
-        </span>
-    </div>
-""", unsafe_allow_html=True)
-
-# --- CUSTOM STYLING ---
+# --- CUSTOM STYLES: FONTS, GLOW, MUSIC ---
 st.markdown("""
     <style>
-        .main { background-color: #0e1117; }
-        .stButton>button {
-            background-color: #4CAF50; color: white;
-            padding: 10px 24px; border: none; font-size: 16px;
-            border-radius: 16px; width: 100%;
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari&display=swap');
+
+    body {
+        background-color: #0e1117;
+    }
+
+    .main {
+        background-color: #0e1117;
+    }
+
+    h1, h2 {
+        text-align: center;
+    }
+
+    .sanskrit-text {
+        font-family: 'Noto Serif Devanagari', serif;
+        color: gold;
+        font-size: 36px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 35px;
+        text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7);
+        animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+        0% {
+            text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.5);
         }
-        .stSelectbox>div>div, .stTextInput>div>div>input {
-            border-radius: 16px;
+        50% {
+            text-shadow: 0px 0px 15px rgba(255, 215, 0, 1);
         }
-        h1, h2 { text-align: center; }
+        100% {
+            text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.5);
+        }
+    }
+
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 24px;
+        font-size: 16px;
+        border-radius: 16px;
+        border: none;
+        width: 100%;
+    }
+
+    .stSelectbox>div>div, .stTextInput>div>div>input {
+        border-radius: 16px;
+    }
     </style>
 """, unsafe_allow_html=True)
+
+# --- BACKGROUND MUSIC (Optional Chanting or Ambience) ---
+st.markdown("""
+    <audio autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2021/10/30/audio_19e5e37973.mp3?filename=om-chanting-11292.mp3" type="audio/mp3">
+    </audio>
+""", unsafe_allow_html=True)
+
+# --- GOLDEN SANSKRIT HEADER ---
+st.markdown('<div class="sanskrit-text">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
 # --- LANGUAGES & CHARACTERS ---
 LANGUAGES = {
@@ -54,7 +90,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- WIKI SUMMARY ---
+# --- WIKIPEDIA SUMMARY FETCH ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -89,7 +125,6 @@ st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_htm
 st.markdown("---")
 
 col1, col2 = st.columns([1, 2])
-
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
     lang_code = LANGUAGES[selected_lang]
