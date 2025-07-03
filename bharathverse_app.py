@@ -4,15 +4,41 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 import base64
+import os
 
 # ------------------- CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# ------------------- STYLE -------------------
+# ------------------- AUTO PLAY AUDIO -------------------
+def autoplay_audio(file_path: str):
+    if not os.path.exists(file_path):
+        st.warning("⚠️ Om chanting file is missing.")
+        return
+    with open(file_path, "rb") as f:
+        audio_bytes = f.read()
+    b64 = base64.b64encode(audio_bytes).decode()
+    autoplay_html = f"""
+        <audio autoplay loop hidden>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+    """
+    st.markdown(autoplay_html, unsafe_allow_html=True)
+
+autoplay_audio("assets/om_chanting.mp3")
+
+# ------------------- CUSTOM STYLING -------------------
 st.markdown("""
     <style>
-        .main { background-color: #0e1117; }
-        h1, h2 { text-align: center; }
+        html, body, .main {
+            background-color: #0e1117;
+        }
+        section.main > div {
+            background-color: #0e1117;
+        }
+        .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
         .sanskrit {
             text-align: center;
             font-size: 28px;
@@ -20,30 +46,34 @@ st.markdown("""
             color: gold;
             margin-bottom: 0.5rem;
         }
+        h1, h2 {
+            text-align: center;
+            color: white;
+        }
         .stButton>button {
-            background-color: #4CAF50; color: white;
-            padding: 10px 24px; border: none; font-size: 16px;
-            border-radius: 16px; width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            font-size: 16px;
+            border-radius: 16px;
+            width: 100%;
         }
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
         }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #0e1117;
+        }
     </style>
 """, unsafe_allow_html=True)
-
-# ------------------- AUTO PLAY AUDIO -------------------
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        audio_bytes = f.read()
-    b64 = base64.b64encode(audio_bytes).decode()
-    md = f"""
-        <audio autoplay loop hidden>
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-        </audio>
-    """
-    st.markdown(md, unsafe_allow_html=True)
-
-autoplay_audio("assets/om_chanting.mp3")
 
 # ------------------- HEADER -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
