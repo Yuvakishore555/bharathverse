@@ -3,56 +3,32 @@ import requests
 from gtts import gTTS
 import urllib.parse
 import tempfile
+import os
 
 # --- CONFIG & STYLING ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
 st.markdown("""
     <style>
-        body {
-            background-color: #0e1117;
+        .main { background-color: #0e1117; }
+        .stButton>button {
+            background-color: #4CAF50; color: white;
+            padding: 10px 24px; border: none; font-size: 16px;
+            border-radius: 16px; width: 100%;
         }
-        .main {
-            background-color: #0e1117;
-        }
-        .stApp {
-            background-color: #0e1117;
-        }
-        h1, h2 {
-            text-align: center;
-            color: #FFD700;
-        }
-        .sanskrit {
-            font-family: 'Noto Serif', serif;
-            font-size: 28px;
-            text-align: center;
-            color: #FFD700;
-            margin-bottom: 10px;
-        }
-        .stButton > button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 24px;
-            border: none;
-            font-size: 16px;
+        .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
-            width: 100%;
         }
-        .stSelectbox > div > div, .stTextInput > div > div > input {
-            border-radius: 16px;
+        h1, h2 { text-align: center; }
+        .sanskrit-header {
+            font-family: 'Sanskrit Text', 'Devanagari', serif;
+            font-size: 36px;
+            color: gold;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
-
-# --- BACKGROUND MUSIC ---
-st.markdown("""
-    <audio autoplay loop>
-        <source src="https://cdn.pixabay.com/download/audio/2021/10/30/audio_19e5e37973.mp3?filename=om-chanting-11292.mp3" type="audio/mp3">
-    </audio>
-""", unsafe_allow_html=True)
-
-# --- GOLDEN SANSKRIT VERSE ---
-st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
 # --- LANGUAGES & CHARACTERS ---
 LANGUAGES = {
@@ -69,6 +45,10 @@ CHARACTERS = {
     "te": ["రాముడు", "శ్రీక్రిష్ణుడు", "అర్జునుడు", "ద్రౌపది", "హనుమంతుడు",
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
+
+# --- DISPLAY SANSKRIT LINE ---
+st.markdown('<div class="sanskrit-header">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
+st.markdown("---")
 
 # --- FETCH WIKIPEDIA SUMMARY ---
 @st.cache_data(ttl=3600)
@@ -141,6 +121,18 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
-# --- FOOTER ---
 st.markdown("---")
+
+# --- FOOTER + OM CHANTING ---
 st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
+
+# Om chanting from local file
+om_path = "assets/om_chanting.mp3"
+if os.path.exists(om_path):
+    st.markdown("""
+        <audio controls loop>
+            <source src="assets/om_chanting.mp3" type="audio/mp3">
+        </audio>
+    """, unsafe_allow_html=True)
+else:
+    st.warning("🔇 Om chanting file not found. Please place it in `assets/om_chanting.mp3`.")
