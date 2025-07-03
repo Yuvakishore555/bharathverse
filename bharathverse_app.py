@@ -7,7 +7,7 @@ import base64
 import os
 
 # ------------------- PAGE CONFIG -------------------
-st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
+st.set_page_config(page_title="🌿 BharathVerse", page_icon="🌿", layout="centered")
 
 # ------------------- THEME STYLING -------------------
 st.markdown("""
