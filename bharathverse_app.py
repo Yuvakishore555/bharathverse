@@ -4,30 +4,25 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 
-# --- PAGE CONFIGURATION ---
+# --- PAGE CONFIG ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# --- GOLDEN SANSKRIT VERSE ---
+# --- GOLDEN SANSKRIT TEXT (ENLARGED, NO BOX) ---
 st.markdown("""
-    <div style="text-align:center; margin-bottom: 20px;">
-        <div style="
-            display: inline-block;
-            background: rgba(255, 215, 0, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            padding: 6px 16px;
-            border-radius: 14px;
-            font-family: 'Noto Serif', serif;
-            font-size: 12px;
+    <div style="text-align:center; margin-top: 10px; margin-bottom: 30px;">
+        <span style="
             color: gold;
-            backdrop-filter: blur(6px);
-            box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
+            font-size: 20px;
+            font-family: 'Noto Serif', serif;
+            font-weight: bold;
+            letter-spacing: 1px;
         ">
             धर्मो रक्षति रक्षितः
-        </div>
+        </span>
     </div>
 """, unsafe_allow_html=True)
 
-# --- CUSTOM CSS STYLING ---
+# --- CUSTOM STYLING ---
 st.markdown("""
     <style>
         .main { background-color: #0e1117; }
@@ -43,7 +38,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- LANGUAGE & CHARACTER SETUP ---
+# --- LANGUAGES & CHARACTERS ---
 LANGUAGES = {
     "English": "en",
     "हिन्दी (Hindi)": "hi",
@@ -59,7 +54,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- WIKIPEDIA API FETCH ---
+# --- WIKI SUMMARY ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -75,7 +70,7 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         st.error(f"🌐 Network error: {e}")
         return None
 
-# --- AUDIO GENERATOR ---
+# --- AUDIO GENERATION ---
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -88,7 +83,7 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# --- PAGE CONTENT ---
+# --- APP UI ---
 st.title("🌿 BharathVerse")
 st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
 st.markdown("---")
