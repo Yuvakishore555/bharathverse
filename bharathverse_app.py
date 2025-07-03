@@ -14,6 +14,7 @@ st.markdown("""
         html, body, [class*="css"] {
             background-color: #0e1117 !important;
             color: #FAFAFA;
+            overflow: hidden;  /* Ensure that no scroll bars are there unless needed */
         }
         .stApp {
             background-color: #0e1117;
@@ -49,6 +50,9 @@ st.markdown("""
             background: #4CAF50;
             border-radius: 10px;
         }
+        .stApp {
+            padding-top: 0 !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -69,7 +73,7 @@ def autoplay_audio(file_path: str):
 
 autoplay_audio("assets/om_chanting.mp3")
 
-# ------------------- HEADERS -------------------
+# ------------------- HEADER -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -99,7 +103,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# ------------------- FETCH FROM WIKIPEDIA -------------------
+# ------------------- FETCH WIKIPEDIA SUMMARY -------------------
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
