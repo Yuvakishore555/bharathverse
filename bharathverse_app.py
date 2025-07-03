@@ -31,19 +31,51 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ------------------- AUTO PLAY AUDIO -------------------
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        audio_bytes = f.read()
-    b64 = base64.b64encode(audio_bytes).decode()
-    md = f"""
-        <audio autoplay loop hidden>
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-        </audio>
-    """
-    st.markdown(md, unsafe_allow_html=True)
+# ------------------- OM AUDIO AUTOPLAY + FALLBACK -------------------
+with open("assets/om_chanting.mp3", "rb") as f:
+    audio_bytes = f.read()
+b64 = base64.b64encode(audio_bytes).decode()
 
-autoplay_audio("assets/om_chanting.mp3")
+st.markdown(f"""
+    <audio id="omAudio" autoplay loop muted>
+        <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+    </audio>
+
+    <button id="audioButton" style="
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: gold;
+        color: black;
+        padding: 8px 16px;
+        font-weight: bold;
+        border-radius: 30px;
+        border: none;
+        display: none;
+        z-index: 9999;
+    ">🔊 Tap to enable Om Chanting</button>
+
+    <script>
+        const audio = document.getElementById("omAudio");
+        const btn = document.getElementById("audioButton");
+
+        window.addEventListener('load', () => {{
+            audio.muted = false;
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {{
+                playPromise.catch(() => {{
+                    btn.style.display = "block";
+                }});
+            }}
+        }});
+
+        btn.addEventListener("click", () => {{
+            audio.muted = false;
+            audio.play();
+            btn.style.display = "none";
+        }});
+    </script>
+""", unsafe_allow_html=True)
 
 # ------------------- HEADER -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
