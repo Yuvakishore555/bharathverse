@@ -4,105 +4,76 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 import base64
-import os
 
-# ------------------- PAGE CONFIG -------------------
+# ------------------- CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# ------------------- THEME STYLING -------------------
+# ------------------- STYLE -------------------
 st.markdown("""
     <style>
-        html, body, .main, [data-testid="stAppViewContainer"], .block-container {
+        html, body, [class*="css"] {
             background-color: #0e1117 !important;
-            color: #FAFAFA !important;
+            color: #FAFAFA;
         }
-        .sanskrit {
-            text-align: center;
-            font-size: 34px;
-            font-family: 'Noto Serif', serif;
-            color: gold;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .welcome-label {
-            font-size: 20px;
-            color: #A0A0A0;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-        h1, h2 {
-            color: #FAFAFA !important;
-            text-align: center;
-        }
-        .stButton>button {
-            background-color: #4CAF50;
-            color: white;
-            font-size: 20px;
-            padding: 10px 26px;
-            border: none;
-            border-radius: 14px;
-            font-family: 'Noto Serif', serif;
-            margin-top: 0.8rem;
-        }
-        .stTextInput>div>div>input {
-            border-radius: 12px;
-            font-size: 16px;
-            padding: 8px;
+        section.main {
+            background-color: #0e1117;
         }
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #888;
+            background: #4CAF50;
             border-radius: 10px;
         }
-        ::-webkit-scrollbar-track {
-            background: #0e1117;
+        .stApp {
+            overflow-x: hidden;
+            background-color: #0e1117;
+        }
+        .main {
+            background-color: #0e1117;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .sanskrit {
+            text-align: center;
+            font-size: 28px;
+            font-family: 'Noto Serif', serif;
+            color: gold;
+            margin-bottom: 0.5rem;
+        }
+        .stButton>button {
+            background-color: #4CAF50; color: white;
+            padding: 10px 24px; border: none; font-size: 16px;
+            border-radius: 16px; width: 100%;
+        }
+        .stSelectbox>div>div, .stTextInput>div>div>input {
+            border-radius: 16px;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# ------------------- SESSION STATE -------------------
-if "app_started" not in st.session_state:
-    st.session_state.app_started = False
-if "user_name" not in st.session_state:
-    st.session_state.user_name = ""
-
-# ------------------- WELCOME SCREEN -------------------
-if not st.session_state.app_started:
-    st.markdown('<div class="sanskrit">Welcome to BharathVerse</div>', unsafe_allow_html=True)
-    st.markdown('<div class="welcome-label">Enter your name to begin:</div>', unsafe_allow_html=True)
-    name = st.text_input("", key="name_input")
-    if st.button("🔱 Begin BharathVerse"):
-        if name.strip():
-            st.session_state.user_name = name.strip()
-            st.session_state.app_started = True
-            st.rerun()
-        else:
-            st.warning("Please enter your name before proceeding.")
-    st.stop()
-
-# ------------------- AUTO PLAY OM CHANT -------------------
+# ------------------- AUTO PLAY AUDIO -------------------
 def autoplay_audio(file_path: str):
-    if os.path.exists(file_path):
-        with open(file_path, "rb") as f:
-            audio_bytes = f.read()
-        b64 = base64.b64encode(audio_bytes).decode()
-        autoplay_html = f"""
-            <audio autoplay loop hidden>
-                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-        """
-        st.markdown(autoplay_html, unsafe_allow_html=True)
+    with open(file_path, "rb") as f:
+        audio_bytes = f.read()
+    b64 = base64.b64encode(audio_bytes).decode()
+    md = f"""
+        <audio autoplay loop hidden>
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+        </audio>
+    """
+    st.markdown(md, unsafe_allow_html=True)
 
+# Autoplay Om Chanting
 autoplay_audio("assets/om_chanting.mp3")
 
 # ------------------- HEADER -------------------
-st.markdown(f'<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
+st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
-st.markdown(f"""
+st.markdown("""
     <div style="text-align: center; font-size: 32px; font-weight: bold; color: white;">
-        BharathVerse
+        🌿 BharathVerse
     </div>
     <div style="text-align: center; font-size: 32px; font-weight: bold; color: white; margin-top: 0.5rem;">
         Explore Ramayana, Mahabharata & Puranas
@@ -137,7 +108,8 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
             return None
-        return res.json().get("extract", None)
+        data = res.json()
+        return data.get("extract", None)
     except Exception as e:
         st.error(f"🌐 Network error: {e}")
         return None
@@ -147,14 +119,15 @@ def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
             return None
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-            gTTS(text=text, lang=lang_code).save(tmp.name)
-            return tmp.name
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
+            tts = gTTS(text=text, lang=lang_code)
+            tts.save(tmp_file.name)
+            return tmp_file.name
     except Exception as e:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# ------------------- MAIN INTERFACE -------------------
+# ------------------- FORM -------------------
 col1, col2 = st.columns([1, 2])
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
@@ -162,7 +135,16 @@ with col1:
 with col2:
     search_term = st.selectbox("🧙‍♂️ Choose a Character", CHARACTERS[lang_code])
 
+# Setup session state for explore
+if "explore_clicked" not in st.session_state:
+    st.session_state.explore_clicked = False
+
+# Button control
 if st.button("🔍 Explore"):
+    st.session_state.explore_clicked = True
+
+# Show results after click
+if st.session_state.explore_clicked:
     st.markdown("---")
     with st.spinner(f"🔍 Searching for '{search_term}' in {selected_lang}..."):
         summary = fetch_wikipedia_summary(search_term, lang_code)
@@ -192,4 +174,4 @@ if st.button("🔍 Explore"):
 
 # ------------------- FOOTER -------------------
 st.markdown("---")
-st.caption(f"Welcome {st.session_state.user_name} | Built by Team BharathVerse 🇮🇳")
+st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
