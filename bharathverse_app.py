@@ -9,16 +9,32 @@ st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered
 
 st.markdown("""
     <style>
-        .main { background-color: #f5f5f5; }
+        .main {
+            background-color: #0e1117;
+            color: #FAFAFA;
+        }
+        h1, h2 {
+            text-align: center;
+            color: white !important;
+        }
+        label {
+            color: white !important;
+            font-weight: 500;
+        }
         .stButton>button {
-            background-color: #4CAF50; color: white;
-            padding: 10px 24px; border: none; font-size: 16px;
-            border-radius: 16px; width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            font-size: 16px;
+            border-radius: 16px;
+            width: 100%;
         }
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
+            background-color: #262730;
+            color: white;
         }
-        h1, h2 { text-align: center; }
     </style>
 """, unsafe_allow_html=True)
 
