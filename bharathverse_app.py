@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import requests
 from gtts import gTTS
 import urllib.parse
@@ -8,7 +9,7 @@ import os
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# --- CSS + JavaScript for Autoplay Om Chanting ---
+# --- CUSTOM CSS ---
 st.markdown("""
     <style>
         .main { background-color: #0e1117; }
@@ -40,37 +41,21 @@ st.markdown("""
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
         }
-        audio { display: none; }
     </style>
-
-    <audio id="omAudio" autoplay loop>
-        <source src="assets/om_chanting.mp3" type="audio/mp3">
-    </audio>
-
-    <script>
-        // Needed for autoplay on some browsers
-        window.addEventListener("load", function() {
-            const audio = document.getElementById("omAudio");
-            if (audio) {
-                audio.play().catch(error => {
-                    console.log("Autoplay prevented:", error);
-                });
-            }
-        });
-
-        function stopChanting() {
-            var audio = document.getElementById("omAudio");
-            if (audio) {
-                audio.pause();
-                audio.currentTime = 0;
-            }
-        }
-    </script>
 """, unsafe_allow_html=True)
+
+# --- HIDDEN AUDIO PLAYER FOR OM CHANTING ---
+audio_path = os.path.join("assets", "om_chanting.mp3")
+if os.path.exists(audio_path):
+    components.html(f"""
+        <audio autoplay loop style="display: none;">
+            <source src="assets/om_chanting.mp3" type="audio/mp3">
+        </audio>
+    """, height=0)
 
 # --- TOP TEXT ---
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
-st.markdown("<h1>🌿 BharathVerse</h1>", unsafe_allow_html=True)
+st.title("🌿 BharathVerse")
 st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
 st.markdown("---")
 
@@ -127,9 +112,6 @@ with col2:
     search_term = st.selectbox("🧙‍♂️ Choose a Character", CHARACTERS[lang_code])
 
 if st.button("🔍 Explore"):
-    # Stop OM Chanting using JavaScript
-    st.components.v1.html("<script>stopChanting();</script>", height=0)
-
     st.markdown("---")
     with st.spinner(f"🔍 Searching for '{search_term}' in {selected_lang}..."):
         summary = fetch_wikipedia_summary(search_term, lang_code)
