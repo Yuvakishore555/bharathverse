@@ -1,34 +1,46 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import requests
 from gtts import gTTS
 import urllib.parse
 import tempfile
-import os
+import base64
 
-# --- PAGE CONFIG ---
+# ------------------- PAGE CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# --- CUSTOM CSS ---
+# ------------------- CUSTOM STYLING -------------------
 st.markdown("""
     <style>
-        .main { background-color: #0e1117; }
-        h1, h2, h3 {
+        .main { background-color: #0e1117 !important; }
+
+        h1, h2 {
             text-align: center;
-            color: white;
+            color: white !important;
         }
+
         .sanskrit {
-            font-family: 'Noto Serif', serif;
-            font-size: 28px;
-            color: #FFD700;
+            font-size: 24px;
+            font-family: 'Karma', serif;
             text-align: center;
-            margin-top: 10px;
+            color: gold;
+            margin-top: 0.5rem;
         }
-        .footer-text {
+
+        .title {
+            color: white !important;
+            font-size: 32px;
+            font-weight: bold;
             text-align: center;
-            color: #999;
-            font-size: 14px;
+            margin-bottom: 0.2rem;
         }
+
+        .subtitle {
+            color: white !important;
+            font-size: 22px;
+            text-align: center;
+            margin-top: 0;
+        }
+
         .stButton>button {
             background-color: #4CAF50;
             color: white;
@@ -38,28 +50,34 @@ st.markdown("""
             border-radius: 16px;
             width: 100%;
         }
+
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
         }
     </style>
 """, unsafe_allow_html=True)
 
-# --- HIDDEN AUDIO PLAYER FOR OM CHANTING ---
-audio_path = os.path.join("assets", "om_chanting.mp3")
-if os.path.exists(audio_path):
-    components.html(f"""
-        <audio autoplay loop style="display: none;">
-            <source src="assets/om_chanting.mp3" type="audio/mp3">
-        </audio>
-    """, height=0)
+# ------------------- BACKGROUND AUDIO -------------------
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        audio_html = f"""
+            <audio autoplay loop style="display: none;">
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+        """
+        st.markdown(audio_html, unsafe_allow_html=True)
 
-# --- TOP TEXT ---
+autoplay_audio("assets/om_chanting.mp3")
+
+# ------------------- TEXT HEADINGS -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
-st.title("🌿 BharathVerse")
-st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
+st.markdown('<div class="title">🌿 BharathVerse</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Explore Ramayana, Mahabharata & Puranas</div>', unsafe_allow_html=True)
 st.markdown("---")
 
-# --- LANGUAGE & CHARACTERS ---
+# ------------------- LANGUAGES & CHARACTERS -------------------
 LANGUAGES = {
     "English": "en",
     "हिन्दी (Hindi)": "hi",
@@ -75,7 +93,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- FUNCTIONS ---
+# ------------------- WIKIPEDIA SUMMARY -------------------
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -85,11 +103,13 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         res = requests.get(url, headers=headers)
         if res.status_code != 200:
             return None
-        return res.json().get("extract", None)
+        data = res.json()
+        return data.get("extract", None)
     except Exception as e:
         st.error(f"🌐 Network error: {e}")
         return None
 
+# ------------------- GENERATE AUDIO -------------------
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -102,8 +122,9 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# --- UI ---
+# ------------------- INPUTS -------------------
 col1, col2 = st.columns([1, 2])
+
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
     lang_code = LANGUAGES[selected_lang]
@@ -139,6 +160,6 @@ if st.button("🔍 Explore"):
     else:
         st.error("❌ No information found in any language.")
 
-# --- FOOTER ---
+# ------------------- FOOTER -------------------
 st.markdown("---")
 st.caption("Built by Team BharathVerse for WikiVerse Hackathon 2025 🇮🇳")
