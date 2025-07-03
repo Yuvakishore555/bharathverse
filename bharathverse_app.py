@@ -8,25 +8,14 @@ import base64
 # ------------------- CONFIG -------------------
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# ------------------- STYLE -------------------
+# ------------------- STYLING -------------------
 st.markdown("""
     <style>
         html, body, [class*="css"] {
             background-color: #0e1117 !important;
             color: #FAFAFA;
         }
-        section.main {
-            background-color: #0e1117;
-        }
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4CAF50;
-            border-radius: 10px;
-        }
         .stApp {
-            overflow-x: hidden;
             background-color: #0e1117;
         }
         .main {
@@ -43,32 +32,44 @@ st.markdown("""
             margin-bottom: 0.5rem;
         }
         .stButton>button {
-            background-color: #4CAF50; color: white;
-            padding: 10px 24px; border: none; font-size: 16px;
-            border-radius: 16px; width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 16px;
+            width: 100%;
         }
         .stSelectbox>div>div, .stTextInput>div>div>input {
             border-radius: 16px;
         }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 10px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# ------------------- AUTO PLAY AUDIO -------------------
+# ------------------- OM CHANTING AUTOPLAY -------------------
 def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        audio_bytes = f.read()
-    b64 = base64.b64encode(audio_bytes).decode()
-    md = f"""
-        <audio autoplay loop hidden>
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-        </audio>
-    """
-    st.markdown(md, unsafe_allow_html=True)
+    try:
+        with open(file_path, "rb") as f:
+            audio_bytes = f.read()
+        b64 = base64.b64encode(audio_bytes).decode()
+        audio_html = f"""
+            <audio autoplay loop hidden>
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+        """
+        st.markdown(audio_html, unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error("Om chanting file not found. Please place 'om_chanting.mp3' in the assets folder.")
 
-# Autoplay Om Chanting
 autoplay_audio("assets/om_chanting.mp3")
 
-# ------------------- HEADER -------------------
+# ------------------- HEADERS -------------------
 st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -98,7 +99,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# ------------------- WIKIPEDIA FETCH -------------------
+# ------------------- FETCH FROM WIKIPEDIA -------------------
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -127,24 +128,18 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# ------------------- FORM -------------------
-col1, col2 = st.columns([1, 2])
-with col1:
-    selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
-    lang_code = LANGUAGES[selected_lang]
-with col2:
-    search_term = st.selectbox("🧙‍♂️ Choose a Character", CHARACTERS[lang_code])
+# ------------------- FORM INPUT -------------------
+with st.form("character_form"):
+    col1, col2 = st.columns([1, 2])
+    with col1:
+        selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
+        lang_code = LANGUAGES[selected_lang]
+    with col2:
+        search_term = st.selectbox("🧙‍♂️ Choose a Character", CHARACTERS[lang_code])
+    submitted = st.form_submit_button("🔍 Explore")
 
-# Setup session state for explore
-if "explore_clicked" not in st.session_state:
-    st.session_state.explore_clicked = False
-
-# Button control
-if st.button("🔍 Explore"):
-    st.session_state.explore_clicked = True
-
-# Show results after click
-if st.session_state.explore_clicked:
+# ------------------- ON SUBMIT -------------------
+if submitted:
     st.markdown("---")
     with st.spinner(f"🔍 Searching for '{search_term}' in {selected_lang}..."):
         summary = fetch_wikipedia_summary(search_term, lang_code)
