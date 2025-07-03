@@ -4,75 +4,55 @@ from gtts import gTTS
 import urllib.parse
 import tempfile
 
-# --- STREAMLIT PAGE CONFIG ---
+# --- CONFIG & STYLING ---
 st.set_page_config(page_title="BharathVerse", page_icon="🌿", layout="centered")
 
-# --- CUSTOM STYLES: FONTS, GLOW, MUSIC ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari&display=swap');
-
-    body {
-        background-color: #0e1117;
-    }
-
-    .main {
-        background-color: #0e1117;
-    }
-
-    h1, h2 {
-        text-align: center;
-    }
-
-    .sanskrit-text {
-        font-family: 'Noto Serif Devanagari', serif;
-        color: gold;
-        font-size: 36px;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 15px;
-        margin-bottom: 35px;
-        text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7);
-        animation: pulse-glow 3s ease-in-out infinite;
-    }
-
-    @keyframes pulse-glow {
-        0% {
-            text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.5);
+        body {
+            background-color: #0e1117;
         }
-        50% {
-            text-shadow: 0px 0px 15px rgba(255, 215, 0, 1);
+        .main {
+            background-color: #0e1117;
         }
-        100% {
-            text-shadow: 0px 0px 5px rgba(255, 215, 0, 0.5);
+        .stApp {
+            background-color: #0e1117;
         }
-    }
-
-    .stButton>button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 24px;
-        font-size: 16px;
-        border-radius: 16px;
-        border: none;
-        width: 100%;
-    }
-
-    .stSelectbox>div>div, .stTextInput>div>div>input {
-        border-radius: 16px;
-    }
+        h1, h2 {
+            text-align: center;
+            color: #FFD700;
+        }
+        .sanskrit {
+            font-family: 'Noto Serif', serif;
+            font-size: 28px;
+            text-align: center;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+        .stButton > button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            font-size: 16px;
+            border-radius: 16px;
+            width: 100%;
+        }
+        .stSelectbox > div > div, .stTextInput > div > div > input {
+            border-radius: 16px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
-# --- BACKGROUND MUSIC (Optional Chanting or Ambience) ---
+# --- BACKGROUND MUSIC ---
 st.markdown("""
     <audio autoplay loop>
         <source src="https://cdn.pixabay.com/download/audio/2021/10/30/audio_19e5e37973.mp3?filename=om-chanting-11292.mp3" type="audio/mp3">
     </audio>
 """, unsafe_allow_html=True)
 
-# --- GOLDEN SANSKRIT HEADER ---
-st.markdown('<div class="sanskrit-text">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
+# --- GOLDEN SANSKRIT VERSE ---
+st.markdown('<div class="sanskrit">धर्मो रक्षति रक्षितः</div>', unsafe_allow_html=True)
 
 # --- LANGUAGES & CHARACTERS ---
 LANGUAGES = {
@@ -90,7 +70,7 @@ CHARACTERS = {
            "కర్ణుడు", "భీష్ముడు", "దుర్యోధనుడు", "లక్ష్మణుడు", "రావణాసురుడు"]
 }
 
-# --- WIKIPEDIA SUMMARY FETCH ---
+# --- FETCH WIKIPEDIA SUMMARY ---
 @st.cache_data(ttl=3600)
 def fetch_wikipedia_summary(term: str, lang_code: str):
     try:
@@ -106,7 +86,7 @@ def fetch_wikipedia_summary(term: str, lang_code: str):
         st.error(f"🌐 Network error: {e}")
         return None
 
-# --- AUDIO GENERATION ---
+# --- GENERATE AUDIO SAFELY ---
 def generate_audio(text: str, lang_code: str) -> str | None:
     try:
         if not text.strip():
@@ -119,12 +99,13 @@ def generate_audio(text: str, lang_code: str) -> str | None:
         st.error(f"🔇 Audio error: {e}")
         return None
 
-# --- APP UI ---
+# --- APP LAYOUT ---
 st.title("🌿 BharathVerse")
 st.markdown("<h2>Explore Ramayana, Mahabharata & Puranas</h2>", unsafe_allow_html=True)
 st.markdown("---")
 
 col1, col2 = st.columns([1, 2])
+
 with col1:
     selected_lang = st.selectbox("🌍 Choose Language", list(LANGUAGES.keys()))
     lang_code = LANGUAGES[selected_lang]
